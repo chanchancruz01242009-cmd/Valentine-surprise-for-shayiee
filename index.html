@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pixel-pink: #ff8da1;
+            --pixel-red: #e63946;
+            --pixel-dark: #4a0e0e;
+            --pixel-cream: #fff1f2;
+            --pixel-gray: #9ca3af;
+            --pixel-yellow: #fbbf24;
+            --pixel-green: #22c55e;
+            --pixel-brown: #92400e;
+        }
+
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--pixel-cream);
+            background-image: 
+                radial-gradient(var(--pixel-pink) 2px, transparent 2px);
+            background-size: 40px 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            border: 8px solid var(--pixel-dark);
+            box-shadow: 12px 12px 0px var(--pixel-pink);
+            width: 450px;
+            max-width: 90%;
+            min-height: 400px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: var(--pixel-red);
+            line-height: 1.5;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            font-size: 0.8rem;
+            border: 4px solid var(--pixel-dark);
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .btn-yes {
+            background-color: #4ade80;
+            color: white;
+            box-shadow: 4px 4px 0px #166534;
+        }
+
+        .btn-yes:hover { transform: scale(1.1); }
+
+        .btn-no {
+            background-color: var(--pixel-red);
+            color: white;
+            box-shadow: 4px 4px 0px #7f1d1d;
+            position: absolute;
+            white-space: nowrap;
+            z-index: 100;
+        }
+
+        .flower-zone {
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-flower {
+            background-color: var(--pixel-yellow);
+            border: 4px solid var(--pixel-dark);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 4px 4px 0px var(--pixel-brown);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .flower-text {
+            font-size: 0.5rem;
+            color: var(--pixel-dark);
+            margin-bottom: 5px;
+        }
+
+        .btn-back {
+            background-color: var(--pixel-cream);
+            color: var(--pixel-gray);
+            border: 2px solid var(--pixel-gray);
+            font-size: 0.4rem;
+            padding: 8px 10px;
+            margin-top: 1rem;
+            box-shadow: 2px 2px 0px var(--pixel-gray);
+        }
+
+        /* Screen management */
+        .screen {
+            display: none;
+            width: 100%;
+        }
+        .active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bouquet Styling */
+        .bouquet {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+        }
+
+        .pixel-heart, .pixel-flower {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s infinite linear;
+            z-index: 5;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .yey {
+            font-size: 1.8rem;
+            color: #f43f5e;
+            display: block;
+            margin-bottom: 1rem;
+            animation: bounce 0.5s infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SCREEN 1: THE QUESTION -->
+        <div id="game-screen" class="screen active">
+            <svg class="mx-auto w-12 h-12 mb-4" viewBox="0 0 24 24" fill="var(--pixel-red)">
+                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.41,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.59,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" />
+            </svg>
+            <h1>Will you be my<br>Valentine?</h1>
+            <div class="flex justify-center gap-8 mt-8 min-h-[60px] relative w-full">
+                <button id="yesBtn" class="btn btn-yes">YES</button>
+                <button id="noBtn" class="btn btn-no">NO</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: SUCCESS MESSAGE -->
+        <div id="success-screen" class="screen">
+            <span class="yey">YEYYYYY</span>
+            <div class="text-[0.7rem] leading-loose text-[#4a0e0e] mb-4 px-4">
+                I knew you would pick yes my honeybunchsugarplum with cherry on top! 🍒
+            </div>
+            <div class="flower-zone">
+                <span class="flower-text">press this</span>
+                <button id="flowerBtn" class="btn-flower">
+                    <svg viewBox="0 0 24 24" width="40" height="40">
+                        <circle cx="12" cy="12" r="3" fill="var(--pixel-brown)" />
+                        <circle cx="12" cy="7" r="4" fill="var(--pixel-yellow)" />
+                        <circle cx="12" cy="17" r="4" fill="var(--pixel-yellow)" />
+                        <circle cx="7" cy="12" r="4" fill="var(--pixel-yellow)" />
+                        <circle cx="17" cy="12" r="4" fill="var(--pixel-yellow)" />
+                    </svg>
+                </button>
+            </div>
+            <button id="backToGameBtn" class="btn btn-back">I Wanna go back to catch the NO button</button>
+        </div>
+
+        <!-- SCREEN 3: VIRTUAL FLOWERS -->
+        <div id="flower-screen" class="screen">
+            <h2 class="text-[0.6rem] mb-6 text-[#92400e]">A Yellow Bouquet for You!</h2>
+            <div class="bouquet">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                    <rect x="48" y="50" width="4" height="40" fill="var(--pixel-green)" />
+                    <rect x="40" y="55" width="4" height="35" transform="rotate(10 40 55)" fill="var(--pixel-green)" />
+                    <rect x="56" y="55" width="4" height="35" transform="rotate(-10 56 55)" fill="var(--pixel-green)" />
+                    <g transform="translate(50,30)">
+                        <circle cx="0" cy="0" r="5" fill="var(--pixel-brown)" />
+                        <circle cx="0" cy="-10" r="8" fill="var(--pixel-yellow)" />
+                        <circle cx="0" cy="10" r="8" fill="var(--pixel-yellow)" />
+                        <circle cx="-10" cy="0" r="8" fill="var(--pixel-yellow)" />
+                        <circle cx="10" cy="0" r="8" fill="var(--pixel-yellow)" />
+                    </g>
+                    <g transform="translate(30,45)">
+                        <circle cx="0" cy="0" r="3" fill="var(--pixel-brown)" />
+                        <circle cx="0" cy="-6" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="0" cy="6" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="-6" cy="0" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="6" cy="0" r="6" fill="var(--pixel-yellow)" />
+                    </g>
+                    <g transform="translate(70,45)">
+                        <circle cx="0" cy="0" r="3" fill="var(--pixel-brown)" />
+                        <circle cx="0" cy="-6" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="0" cy="6" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="-6" cy="0" r="6" fill="var(--pixel-yellow)" />
+                        <circle cx="6" cy="0" r="6" fill="var(--pixel-yellow)" />
+                    </g>
+                </svg>
+            </div>
+            <p class="text-[0.5rem] text-pink-500 mb-4">You deserve all the flowers!</p>
+            <button id="backToSuccessBtn" class="btn btn-back">Go Back</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const flowerBtn = document.getElementById('flowerBtn');
+        const backToGameBtn = document.getElementById('backToGameBtn');
+        const backToSuccessBtn = document.getElementById('backToSuccessBtn');
+        
+        const gameScreen = document.getElementById('game-screen');
+        const successScreen = document.getElementById('success-screen');
+        const flowerScreen = document.getElementById('flower-screen');
+
+        const showScreen = (screenToShow) => {
+            [gameScreen, successScreen, flowerScreen].forEach(s => {
+                s.classList.remove('active');
+                s.style.display = 'none';
+            });
+            screenToShow.classList.add('active');
+            screenToShow.style.display = 'flex';
+        };
+
+        const teleport = () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth - 50;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 50;
+            const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        };
+
+        noBtn.addEventListener('mouseover', teleport);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); teleport(); });
+
+        yesBtn.addEventListener('click', () => {
+            showScreen(successScreen);
+            for(let i = 0; i < 20; i++) setTimeout(createHeart, i * 150);
+        });
+
+        flowerBtn.addEventListener('click', () => {
+            showScreen(flowerScreen);
+        });
+
+        backToGameBtn.addEventListener('click', () => {
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+            showScreen(gameScreen);
+        });
+
+        backToSuccessBtn.addEventListener('click', () => {
+            showScreen(successScreen);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'pixel-heart w-5 h-5 text-[#e63946]';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.41,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.59,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z" /></svg>`;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 1000);
+    </script>
+</body>
+</html>
